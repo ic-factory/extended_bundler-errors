@@ -26,14 +26,10 @@ It is recommended to:
         return if defined?(@registered) && @registered
         @registered = true
 
-        Bundler::Plugin.add_hook('after-install') do |spec_install|
-          troubleshoot(spec_install) if spec_install.state != :installed
+        Bundler::Plugin.add_hook('after-install-all') do |spec_install|
+          puts "Installation has finished"
         end
 
-        Bundler::Plugin.add_hook('before-install-all') do |_d|
-          # This hook makes bundler load the plugin
-          # Because the plugin is loaded before everything, our after-install hook is registered
-        end
       end
 
       # Troubleshoots a failed installation
